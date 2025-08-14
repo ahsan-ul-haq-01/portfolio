@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ahsan ul Haq — Medical Physicist</title>
+  <title>AHSAN UL HAQ— Medical Physicist</title>
   <meta name="description" content="Portfolio website of Ahsan ul Haq — Medical Physicist. Research, projects, education, experience, skills, and contact." />
   <meta name="author" content="Ahsan ul Haq" />
   <meta property="og:title" content="Ahsan ul Haq — Medical Physicist" />
@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfT9l1XlJbJzQxNfZkZ6lLJrWueP1C2f3uQJ4xv9vY9V+8c+8a9T9Cyg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -28,10 +28,11 @@
   </script>
 </head>
 <body>
+  <!-- Dark mode toggle button -->
+  <button id="darkModeToggle" aria-label="Toggle dark mode"><i class="fa fa-moon-o"></i></button>
   <!-- NAV -->
   <header class="nav">
     <div class="container nav-inner">
-      <div class="brand"><span class="dot"></span><span>Ahsan&nbsp;ul&nbsp;Haq</span></div>
       <ul>
         <li><a class="link" href="#home">Home</a></li>
         <li><a class="link" href="#research">Research</a></li>
@@ -42,13 +43,7 @@
         <li><a class="link" href="#contact">Contact</a></li>
       </ul>
       <div class="actions">
-        <a class="icon-btn" href="tel:+917006247927" title="Call"><i class="fa-solid fa-phone"></i></a>
-        <a class="icon-btn" href="mailto:ahsanulhaqreshi@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
-        <a class="icon-btn" href="https://www.linkedin.com/in/ahsan-ul-haq01/" target="_blank" rel="noreferrer" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-        <a class="icon-btn" href="https://github.com/ahsan-ul-haq-01" target="_blank" rel="noreferrer" title="GitHub"><i class="fa-brands fa-github"></i></a>
-        <a class="icon-btn" href="MY CV_0.1.pdf" download title="Download CV"><i class="fa-solid fa-file-arrow-down"></i></a>
-        <button id="theme" class="icon-btn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
-        <button class="icon-btn menu-btn" id="menu" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
       </div>
     </div>
     <nav class="mobile" id="mobile" style="display:none;">
@@ -66,17 +61,25 @@
     </nav>
   </header>
 
+<!-- Dark mode toggle button -->
+<button id="darkModeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+  <i class="fa-solid fa-moon"></i>
+  <i class="fa-solid fa-sun" style="display:none;"></i>
+</button>
+
+
   <!-- HERO -->
   <div class="shine"></div>
   <section id="home" class="hero container">
     <div class="avatar">
       <img src="img/profile.jpg" alt="Portrait of Ahsan ul Haq" loading="lazy" />
+      <div class="hero-name">AHSAN UL HAQ</div>
     </div>
     <span class="badge"><i class="fa-solid fa-atom"></i> Medical Physicist</span>
     <h1>Precision in Physics, Compassion in Care</h1>
     <p class="subtitle">
-      M.Sc. Physics (Gold Medalist) — focused on radiation therapy QA, beam profiling, and
-      computational physics. Blending rigorous science with patient-centered outcomes.
+       Focused on radiation therapy QA, beam profiling, and
+      computational physics.<br>Blending rigorous science with patient-centered outcomes.
     </p>
     <div class="cta">
       <button class="btn btn-primary" id="open-cv"><i class="fa-solid fa-file-pdf"></i> View CV</button>
@@ -105,7 +108,7 @@
             <i class="fa-solid fa-microchip"></i>
           </div>
           <h3>HPC for Physics</h3>
-          <p class="meta">Workshop · ICARD · 2024</p>
+          <p class="meta">Workshop · IUCAA · 2024</p>
           <p>Hands-on high-performance computing for large-scale simulations and data workflows.</p>
         </article>
         <article class="card tilt">
@@ -127,14 +130,14 @@
       <div class="timeline">
         <div class="tl-item">
           <strong>Master of Science (Physics)</strong> — University of Kashmir (2022–2024)
-          <div class="meta">CGPA 8.74 · 87.4%</div>
+          
         </div>
         <div class="tl-item">
           <strong>B.Sc. (Physics Major)</strong> — IGNOU (2018–2021)
-          <div class="meta">66.22%</div>
+        
         </div>
         <div class="tl-item">
-          <strong>Higher Secondary (PCMB)</strong> — JKBOSE (2015) · 78.4%
+          <strong>Higher Secondary (PCMB)</strong> — JKBOSE (2015)
         </div>
       </div>
     </div>
@@ -191,6 +194,73 @@
     </div>
   </section>
 
+
+  <!-- Certifications -->
+<section id="certifications" class="reveal">
+  <div class="container">
+    <h2>Certifications</h2>
+
+    <div class="grid cert-cards">
+      <!-- Card 1 -->
+      <article class="card tilt cert-card">
+        <div class="cert-top">
+          <i class="fa-solid fa-certificate"></i>
+          <span class="cert-badge">Issued: 2024</span>
+        </div>
+        <h3>Certificate name here</h3>
+        <p class="meta">
+          Credential ID: MRPF-12345 • Provider: MedPhys Academy
+        </p>
+        <ul class="cert-points">
+          <li>Beam flatness, symmetry, and field size verification</li>
+          <li>Daily/weekly QA workflows and documentation</li>
+          <li>Tolerance setting and drift detection</li>
+        </ul>
+        <!-- Optional button -->
+
+        <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">View Certificate</a>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card tilt cert-card">
+        <div class="cert-top">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span class="cert-badge">Expires: 2026</span>
+        </div>
+        <h3>Radiation Safety Officer (RSO)</h3>
+        <p class="meta">
+          Credential ID: RSO-98765 • Provider: National Safety Council
+        </p>
+        <ul class="cert-points">
+          <li>Radiation protection and compliance</li>
+          <li>Dosimetry programs and incident response</li>
+          <li>Regulatory reporting and audits</li>
+        </ul>
+        <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">View Certificate</a>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card tilt cert-card">
+        <div class="cert-top">
+          <i class="fa-solid fa-wave-square"></i>
+          <span class="cert-badge">Issued: 2025</span>
+        </div>
+        <h3>Linac Beam Profiling & QA</h3>
+        <p class="meta">
+          Credential ID: LBQ-55231 • Provider: PhysX Institute
+        </p>
+        <ul class="cert-points">
+          <li>Penumbra analysis and profile normalization</li>
+          <li>Automation of output constancy checks</li>
+          <li>Control charts and alert thresholds</li>
+        </ul>
+        <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">View Certificate</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+
   <!-- SKILLS -->
   <section id="skills" class="reveal">
     <div class="container">
@@ -207,23 +277,10 @@
       </div>
     </div>
   </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="reveal">
+  <!-- MESSAGE ME -->
+  <section id="message" class="reveal">
     <div class="container">
-      <h2>Contact</h2>
-      <div class="grid contact-grid">
-        <article class="card contact-card tilt">
-          <h3>Reach me</h3>
-          <ul class="contact-list">
-            <li><i class="fa-solid fa-location-dot"></i> Shopian, J&K — India</li>
-            <li><a href="tel:+917006247927"><i class="fa-solid fa-phone"></i> +91 7006247927</a></li>
-            <li><a href="mailto:ahsanulhaqreshi@gmail.com"><i class="fa-solid fa-envelope"></i> ahsanulhaqreshi@gmail.com</a></li>
-            <li><a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/ahsan-ul-haq01/"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
-            <li><a target="_blank" rel="noreferrer" href="https://github.com/ahsan-ul-haq-01"><i class="fa-brands fa-github"></i> GitHub</a></li>
-            <li><a target="_blank" rel="noreferrer" href="https://twitter.com/ahsan_ul_haq_0/"><i class="fa-brands fa-x-twitter"></i> X (Twitter)</a></li>
-          </ul>
-        </article>
+      <div class="center-message-form">
         <article class="card tilt">
           <h3>Message me</h3>
           <form id="contactForm">
@@ -246,22 +303,25 @@
             <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Send</button>
             <p id="formMsg" class="form-msg" role="status" aria-live="polite"></p>
           </form>
-          <p class="meta small">Messages are saved to Google Sheets via Apps Script.</p>
+          
         </article>
+      </div>
+    </div>
+  </section>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="social">
-      <a href="https://www.linkedin.com/in/ahsan-ul-haq01/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-      <a href="https://twitter.com/ahsan_ul_haq_0/" target="_blank" rel="noreferrer" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-      <a href="https://github.com/ahsan-ul-haq-01" target="_blank" rel="noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-      <a href="mailto:ahsanulhaqreshi@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-      <a href="MY CV_0.1.pdf" aria-label="CV" download><i class="fa-solid fa-file"></i></a>
+    <div class="contact-icons">
+      <a href="https://medium.com/ahsan_ul_haq_01"><img src="img/logos/mmedium.png" alt="Medium"><span>Medium</span></a>
+      <a href="https://www.linkedin.com/in/ahsan-ul-haq01/"><img src="img/logos/llinkedin.png" alt="LinkedIn"><span>LinkedIn</span></a>
+      <a href="https://twitter.com/ahsan_ul_haq_0"><img src="img/logos/Logo_of_Twitter.svg.png" alt="Twitter"><span>Twitter</span></a>
+      <a href="https://github.com/ahsan-ul-haq-01"><img src="img/logos/github.png" alt="GitHub"><span>GitHub</span></a>
+      <a href="mailto:ahsanulhaqreshi@gmail.com"><img src="img/logos/gmail.jpg" alt="Email"><span>Email</span></a>
     </div>
-    <small>© <span id="year"></span> Ahsan ul Haq. All rights reserved.</small>
+    <small>© <span id="year"></span> AHSAN UL HAQ. All rights reserved.</small>
   </footer>
 
   <!-- Back to top -->
@@ -270,7 +330,7 @@
   <!-- CV Dialog -->
   <dialog id="cvDialog" aria-label="Curriculum Vitae">
     <div class="dialog-head">
-      <strong>Curriculum Vitae — Ahsan ul Haq</strong>
+      <strong>Curriculum Vitae — AHSAN UL HAQ</strong>
       <div class="dialog-actions">
         <a class="icon-btn" href="MY CV_0.1.pdf" download title="Download"><i class="fa-solid fa-download"></i></a>
         <button class="close" id="closeCV" aria-label="Close CV"><i class="fa-solid fa-xmark"></i></button>
@@ -283,6 +343,37 @@
     </div>
   </dialog>
 
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
+</body>
+<script>
+// Dark mode toggle logic with icon feedback
+document.addEventListener('DOMContentLoaded', function() {
+  var toggleBtn = document.getElementById('darkModeToggle');
+  if (!toggleBtn) return;
+  function setIcon() {
+    if (document.body.classList.contains('dark-mode')) {
+      toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+      toggleBtn.title = 'Switch to light mode';
+    } else {
+      toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+      toggleBtn.title = 'Switch to dark mode';
+    }
+  }
+  // Set initial state from localStorage
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    document.body.classList.add('dark-mode');
+  }
+  setIcon();
+  toggleBtn.addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+    if (document.body.classList.contains('dark-mode')) {
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      localStorage.setItem('darkMode', 'disabled');
+    }
+    setIcon();
+  });
+});
+</script>
 </body>
 </html>

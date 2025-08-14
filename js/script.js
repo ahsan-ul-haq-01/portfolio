@@ -1,3 +1,35 @@
+// ---------- Theme (Dark Mode Toggle) ----------
+const darkBtn = document.getElementById('darkModeToggle');
+
+function showSun() {
+  const sun = darkBtn?.querySelector('.fa-sun');
+  const moon = darkBtn?.querySelector('.fa-moon');
+  if (sun && moon) { sun.style.display = 'inline-block'; moon.style.display = 'none'; }
+}
+
+function showMoon() {
+  const sun = darkBtn?.querySelector('.fa-sun');
+  const moon = darkBtn?.querySelector('.fa-moon');
+  if (sun && moon) { sun.style.display = 'none'; moon.style.display = 'inline-block'; }
+}
+
+function applySavedTheme() {
+  const saved = localStorage.getItem('theme'); // 'light' | 'dark'
+  const isDark = saved === 'dark';
+  document.body.classList.toggle('dark-mode', isDark);
+  document.body.dataset.theme = isDark ? 'dark' : 'light';
+  if (isDark) showSun(); else showMoon();
+}
+
+applySavedTheme();
+
+darkBtn?.addEventListener('click', () => {
+  const isDark = document.body.classList.toggle('dark-mode');
+  document.body.dataset.theme = isDark ? 'dark' : 'light';
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  if (isDark) showSun(); else showMoon();
+});
+
 // ---------- Theme ----------
 const themeBtn = document.getElementById('theme');
 if (localStorage.getItem('theme')) {
@@ -21,6 +53,13 @@ mobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=> mobile
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click', e=>{
     const id = a.getAttribute('href').slice(1);
+    // If Contact tab, scroll to footer instead
+    if (id === 'contact') {
+      e.preventDefault();
+      document.querySelector('footer').scrollIntoView({behavior:'smooth', block:'start'});
+      history.replaceState(null, '', '#contact');
+      return;
+    }
     const el = document.getElementById(id);
     if(el){
       e.preventDefault();
@@ -83,8 +122,7 @@ document.querySelectorAll('.tilt').forEach(card=>{
 // 1) Create a Google Sheet
 // 2) Extensions → Apps Script, paste sample below, deploy as Web App (Anyone)
 // 3) Replace the URL below with your deployed Web App URL
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec'; // <-- replace
-
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxIJAbInlbPfE6GkFBcAl81HfaRL50JLjcTYfZExooHtMuAvpcs5eAFfV8dCSjTCJPl_g/exec'; // <-- replace
 const form = document.getElementById('contactForm');
 const msg = document.getElementById('formMsg');
 
