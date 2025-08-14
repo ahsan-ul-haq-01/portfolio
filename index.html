@@ -1,52 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AHSAN UL HAQ - Medical Physicist</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="img/profile.jpg">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ahsan ul Haq — Medical Physicist</title>
+  <meta name="description" content="Portfolio website of Ahsan ul Haq — Medical Physicist. Research, projects, education, experience, skills, and contact." />
+  <meta name="author" content="Ahsan ul Haq" />
+  <meta property="og:title" content="Ahsan ul Haq — Medical Physicist" />
+  <meta property="og:description" content="Research · Projects · Experience · Skills · Contact" />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkfT9l1XlJbJzQxNfZkZ6lLJrWueP1C2f3uQJ4xv9vY9V+8c+8a9T9Cyg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Ahsan ul Haq",
+    "jobTitle":"Medical Physicist",
+    "url":"",
+    "sameAs":["https://www.linkedin.com/in/ahsan-ul-haq01/","https://github.com/ahsan-ul-haq-01","https://twitter.com/ahsan_ul_haq_0/"]
+  }
+  </script>
 </head>
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="#" class="logo">AHSAN UL HAQ</a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#research">Research</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
-        </div>
+  <!-- NAV -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand"><span class="dot"></span><span>Ahsan&nbsp;ul&nbsp;Haq</span></div>
+      <ul>
+        <li><a class="link" href="#home">Home</a></li>
+        <li><a class="link" href="#research">Research</a></li>
+        <li><a class="link" href="#education">Education</a></li>
+        <li><a class="link" href="#experience">Experience</a></li>
+        <li><a class="link" href="#projects">Projects</a></li>
+        <li><a class="link" href="#skills">Skills</a></li>
+        <li><a class="link" href="#contact">Contact</a></li>
+      </ul>
+      <div class="actions">
+        <a class="icon-btn" href="tel:+917006247927" title="Call"><i class="fa-solid fa-phone"></i></a>
+        <a class="icon-btn" href="mailto:ahsanulhaqreshi@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        <a class="icon-btn" href="https://www.linkedin.com/in/ahsan-ul-haq01/" target="_blank" rel="noreferrer" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a class="icon-btn" href="https://github.com/ahsan-ul-haq-01" target="_blank" rel="noreferrer" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a class="icon-btn" href="MY CV_0.1.pdf" download title="Download CV"><i class="fa-solid fa-file-arrow-down"></i></a>
+        <button id="theme" class="icon-btn" aria-label="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+        <button class="icon-btn menu-btn" id="menu" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+    <nav class="mobile" id="mobile" style="display:none;">
+      
+      <ul class="container">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#" id="open-cv-mobile">View CV</a></li>
+      </ul>
     </nav>
+  </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero fade-in">
-        <img src="img/profile.jpg" alt="Profile Picture" class="profile-img">
-        <h1>AHSAN UL HAQ</h1>
-        <p class="tagline">Medical Physicist</p>
-    </section>
+  <!-- HERO -->
+  <div class="shine"></div>
+  <section id="home" class="hero container">
+    <div class="avatar">
+      <img src="img/profile.jpg" alt="Portrait of Ahsan ul Haq" loading="lazy" />
+    </div>
+    <span class="badge"><i class="fa-solid fa-atom"></i> Medical Physicist</span>
+    <h1>Precision in Physics, Compassion in Care</h1>
+    <p class="subtitle">
+      M.Sc. Physics (Gold Medalist) — focused on radiation therapy QA, beam profiling, and
+      computational physics. Blending rigorous science with patient-centered outcomes.
+    </p>
+    <div class="cta">
+      <button class="btn btn-primary" id="open-cv"><i class="fa-solid fa-file-pdf"></i> View CV</button>
+      <a class="btn btn-ghost" href="#projects"><i class="fa-solid fa-diagram-project"></i> See Projects</a>
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="social-links">
-            <a href="https://www.linkedin.com/in/ahsan-ul-haq01/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://twitter.com/ahsan_ul_haq_0/" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://github.com/ahsan-ul-haq-01" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://medium.com/ahsan_ul_haq_01" target="_blank"><i class="fab fa-medium"></i></a>
-            <a href="mailto:ahsanulhaqreshi@gmail.com"><i class="fas fa-envelope"></i></a>
+  <!-- RESEARCH -->
+  <section id="research" class="reveal">
+    <div class="container">
+      <h2>Research Highlights</h2>
+      <div class="grid cards">
+        <article class="card tilt">
+          <div class="card-top">
+            <i class="fa-solid fa-burst"></i>
+          </div>
+          <h3>Radiation Beam Profiling & QA</h3>
+          <p class="meta">Project · 2024 · SKIMS Soura & University of Kashmir</p>
+          <p>
+            Enhanced cancer care through precise linac beam characterization and rigorous daily/weekly QA pipelines.
+            Focus on penumbra analysis, flatness & symmetry, and output constancy.
+          </p>
+        </article>
+        <article class="card tilt">
+          <div class="card-top">
+            <i class="fa-solid fa-microchip"></i>
+          </div>
+          <h3>HPC for Physics</h3>
+          <p class="meta">Workshop · ICARD · 2024</p>
+          <p>Hands-on high-performance computing for large-scale simulations and data workflows.</p>
+        </article>
+        <article class="card tilt">
+          <div class="card-top">
+            <i class="fa-solid fa-x-ray"></i>
+          </div>
+          <h3>Medical Image Analysis</h3>
+          <p class="meta">McMedHacks Summer School · 2022</p>
+          <p>Seminars and coding workshops on deep learning for medical imaging and analysis.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="reveal">
+    <div class="container">
+      <h2>Education</h2>
+      <div class="timeline">
+        <div class="tl-item">
+          <strong>Master of Science (Physics)</strong> — University of Kashmir (2022–2024)
+          <div class="meta">CGPA 8.74 · 87.4%</div>
         </div>
-        <p>© <span id="year"></span> AHSAN UL HAQ. All Rights Reserved.</p>
-    </footer>
+        <div class="tl-item">
+          <strong>B.Sc. (Physics Major)</strong> — IGNOU (2018–2021)
+          <div class="meta">66.22%</div>
+        </div>
+        <div class="tl-item">
+          <strong>Higher Secondary (PCMB)</strong> — JKBOSE (2015) · 78.4%
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="js/script.js"></script>
+  <!-- EXPERIENCE -->
+  <section id="experience" class="reveal">
+    <div class="container">
+      <h2>Experience & Workshops</h2>
+      <div class="grid cards">
+        <article class="card tilt">
+          <div class="card-top"><i class="fa-solid fa-flask"></i></div>
+          <h3>International Symposium on Semiconductor Materials and Devices</h3>
+          <p class="meta">2024 · Dept. of Physics, UoK · SSI (India)</p>
+        </article>
+        <article class="card tilt">
+          <div class="card-top"><i class="fa-solid fa-server"></i></div>
+          <h3>HPC Workshop</h3>
+          <p class="meta">2024 · ICARD & Dept. of Physics, UoK</p>
+        </article>
+        <article class="card tilt">
+          <div class="card-top"><i class="fa-solid fa-rocket"></i></div>
+          <h3>Resonance Science Outreach Program</h3>
+          <p class="meta">2023 · IAS · INSA · NASI · UoK</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="reveal">
+    <div class="container">
+      <h2>Featured Projects</h2>
+      <div class="grid cards">
+        <article class="card project tilt">
+          <div class="logo">QA</div>
+          <div>
+            <h3>Linac QA Dashboard</h3>
+            <p class="meta">Python · Matplotlib · NumPy</p>
+            <p>Automates daily output checks, generates control charts, and flags drifts beyond tolerance.</p>
+            <a href="#" aria-disabled="true"><i class="fa-solid fa-link"></i> (Repo coming soon)</a>
+          </div>
+        </article>
+        <article class="card project tilt">
+          <div class="logo">RT</div>
+          <div>
+            <h3>Beam Profile Analyzer</h3>
+            <p class="meta">MATLAB</p>
+            <p>Computes flatness, symmetry, field size, and penumbra from scanned profiles.</p>
+            <a href="#" aria-disabled="true"><i class="fa-solid fa-link"></i> (Docs coming soon)</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="reveal">
+    <div class="container">
+      <h2>Skills</h2>
+      <div class="skills">
+        <span class="skill"><i class="fa-solid fa-wand-magic-sparkles"></i> Radiation Therapy QA</span>
+        <span class="skill"><i class="fa-solid fa-grip-lines-vertical"></i> Beam Profiling</span>
+        <span class="skill"><i class="fa-brands fa-python"></i> Python</span>
+        <span class="skill"><i class="fa-solid fa-square-root-variable"></i> MATLAB</span>
+        <span class="skill"><i class="fa-solid fa-code"></i> C</span>
+        <span class="skill"><i class="fa-solid fa-network-wired"></i> HPC</span>
+        <span class="skill"><i class="fa-solid fa-pen-fancy"></i> Scientific Writing</span>
+        <span class="skill"><i class="fa-solid fa-file-word"></i> MS Office</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="reveal">
+    <div class="container">
+      <h2>Contact</h2>
+      <div class="grid contact-grid">
+        <article class="card contact-card tilt">
+          <h3>Reach me</h3>
+          <ul class="contact-list">
+            <li><i class="fa-solid fa-location-dot"></i> Shopian, J&K — India</li>
+            <li><a href="tel:+917006247927"><i class="fa-solid fa-phone"></i> +91 7006247927</a></li>
+            <li><a href="mailto:ahsanulhaqreshi@gmail.com"><i class="fa-solid fa-envelope"></i> ahsanulhaqreshi@gmail.com</a></li>
+            <li><a target="_blank" rel="noreferrer" href="https://www.linkedin.com/in/ahsan-ul-haq01/"><i class="fa-brands fa-linkedin"></i> LinkedIn</a></li>
+            <li><a target="_blank" rel="noreferrer" href="https://github.com/ahsan-ul-haq-01"><i class="fa-brands fa-github"></i> GitHub</a></li>
+            <li><a target="_blank" rel="noreferrer" href="https://twitter.com/ahsan_ul_haq_0/"><i class="fa-brands fa-x-twitter"></i> X (Twitter)</a></li>
+          </ul>
+        </article>
+        <article class="card tilt">
+          <h3>Message me</h3>
+          <form id="contactForm">
+            <div class="field">
+              <label for="name"><i class="fa-solid fa-user"></i> Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="field">
+              <label for="email"><i class="fa-solid fa-at"></i> Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <label for="subject"><i class="fa-solid fa-heading"></i> Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="Subject" />
+            </div>
+            <div class="field">
+              <label for="message"><i class="fa-solid fa-message"></i> Message</label>
+              <textarea id="message" name="message" rows="4" placeholder="Write your message..." required></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Send</button>
+            <p id="formMsg" class="form-msg" role="status" aria-live="polite"></p>
+          </form>
+          <p class="meta small">Messages are saved to Google Sheets via Apps Script.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="social">
+      <a href="https://www.linkedin.com/in/ahsan-ul-haq01/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://twitter.com/ahsan_ul_haq_0/" target="_blank" rel="noreferrer" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+      <a href="https://github.com/ahsan-ul-haq-01" target="_blank" rel="noreferrer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="mailto:ahsanulhaqreshi@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+      <a href="MY CV_0.1.pdf" aria-label="CV" download><i class="fa-solid fa-file"></i></a>
+    </div>
+    <small>© <span id="year"></span> Ahsan ul Haq. All rights reserved.</small>
+  </footer>
+
+  <!-- Back to top -->
+  <a href="#home" class="to-top" id="toTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
+
+  <!-- CV Dialog -->
+  <dialog id="cvDialog" aria-label="Curriculum Vitae">
+    <div class="dialog-head">
+      <strong>Curriculum Vitae — Ahsan ul Haq</strong>
+      <div class="dialog-actions">
+        <a class="icon-btn" href="MY CV_0.1.pdf" download title="Download"><i class="fa-solid fa-download"></i></a>
+        <button class="close" id="closeCV" aria-label="Close CV"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+    <div class="dialog-body">
+      <object class="pdf" data="MY CV_0.1.pdf#toolbar=0&navpanes=0" type="application/pdf">
+        <iframe class="pdf" src="MY CV_0.1.pdf"></iframe>
+      </object>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
 </body>
 </html>
