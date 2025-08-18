@@ -208,9 +208,75 @@ h2{
 .tl-item{position:relative; margin:0 0 18px 0; padding-left:14px}
 .tl-item::before{content:""; position:absolute; left:-1px; top:4px; width:12px; height:12px; border-radius:50%; background:linear-gradient(45deg,var(--brand),var(--brand-2)); box-shadow:0 0 0 4px var(--ring)}
 
-/* Project cards */
-.project{display:flex; gap:14px; align-items:flex-start}
-.project .logo{width:42px; height:42px; border-radius:10px; flex:0 0 42px; background:linear-gradient(45deg,#1e293b,#0ea5e9); display:grid; place-items:center; font-weight:800; color:#e2f2ff}
+/* Project Section */
+#projects {
+  width: 100%;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  color: #fff;
+  padding: 40px 0;
+  position: relative;
+}
+
+#projects h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Grid for cards */
+.project-cards {
+  display: flex;           
+  flex-wrap: wrap;         
+  gap: 20px;               
+  justify-content: center; 
+  align-items: stretch;    
+}
+
+/* Each project card */
+.project-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  flex: 0 0 300px; /* fixed width */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Logo box */
+.project-card .logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #1e293b, #0ea5e9);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: #e2f2ff;
+}
+
+/* Meta text */
+.project-card .meta {
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin-bottom: 8px;
+}
+
+/* Links inside cards */
+.project-card a {
+  color: #0ea5e9;
+  text-decoration: underline;
+  font-size: 0.9em;
+}
+
+.project-card a:hover {
+  color: #38bdf8;
+}
+
 
 /* Skills */
 .skills{display:flex; flex-wrap:wrap; gap:10px}
@@ -355,11 +421,16 @@ dialog::backdrop{background:rgba(2,6,23,.7); backdrop-filter:blur(4px)}
   .nav-links{display:none}
 
   /* Show hamburger and dropdown ONLY on mobile */
-  .menu-btn{display:inline-flex}
+  .menu-btn{display: inline-flexbox}
 
   .mobile{
-    display:none; position:absolute; left:0; right:0; top:60px;
-    background:rgba(2,6,23,.97); border-bottom:1px solid rgba(255,255,255,.06)
+    display:none; 
+    position:absolute; 
+    left:0; 
+    right:0; 
+    top:60px;
+    background:rgba(2,6,23,.97); 
+    border-bottom:1px solid rgba(255,255,255,.06)
   }
   .mobile.open{display:block}
   .mobile ul{list-style:none; margin:0; padding:8px 14px 14px; display:grid; gap:6px}
