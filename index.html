@@ -345,35 +345,4 @@
 
   <script src="js/script.js"></script>
 </body>
-<script>
-// Dark mode toggle logic with icon feedback
-document.addEventListener('DOMContentLoaded', function() {
-  var toggleBtn = document.getElementById('darkModeToggle');
-  if (!toggleBtn) return;
-  function setIcon() {
-    if (document.body.classList.contains('dark-mode')) {
-      toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-      toggleBtn.title = 'Switch to light mode';
-    } else {
-      toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
-      toggleBtn.title = 'Switch to dark mode';
-    }
-  }
-  // Set initial state from localStorage
-  if (localStorage.getItem('darkMode') === 'enabled') {
-    document.body.classList.add('dark-mode');
-  }
-  setIcon();
-  toggleBtn.addEventListener('click', function() {
-    document.body.classList.toggle('dark-mode');
-    if (document.body.classList.contains('dark-mode')) {
-      localStorage.setItem('darkMode', 'enabled');
-    } else {
-      localStorage.setItem('darkMode', 'disabled');
-    }
-    setIcon();
-  });
-});
-</script>
-</body>
 </html>
