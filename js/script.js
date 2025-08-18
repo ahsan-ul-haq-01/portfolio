@@ -1,165 +1,199 @@
-// ---------- Theme (Dark Mode Toggle) ----------
-const darkBtn = document.getElementById('darkModeToggle');
+/* =========================================
+   JS interactions:
+   - Dark mode (with localStorage)
+   - Mobile menu toggle (mobile-only)
+   - Lightbox gallery
+   - Contact form validation / fake submit
+   - Scroll reveal & hover parallax
+   - Back-to-top button
+   - CV dialog open/close
+   ========================================= */
 
-function showSun() {
-  const sun = darkBtn?.querySelector('.fa-sun');
-  const moon = darkBtn?.querySelector('.fa-moon');
-  if (sun && moon) { sun.style.display = 'inline-block'; moon.style.display = 'none'; }
-}
+// Helper: select
+const $ = (q, c = document) => c.querySelector(q);
+const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
 
-function showMoon() {
-  const sun = darkBtn?.querySelector('.fa-sun');
-  const moon = darkBtn?.querySelector('.fa-moon');
-  if (sun && moon) { sun.style.display = 'none'; moon.style.display = 'inline-block'; }
-}
+/* ---------- Dark Mode ---------- */
+(function initDarkMode(){
+  const btn = $('#darkModeToggle');
+  const pref = localStorage.getItem('darkMode');
+  if (pref === 'enabled') document.body.classList.add('dark-mode');
+  if (btn) {
+    const setIcon = () => {
+      btn.innerHTML = document.body.classList.contains('dark-mode')
+        ? '<i class="fa-solid fa-sun"></i>'
+        : '<i class="fa-solid fa-moon"></i>';
+    };
+    setIcon();
+    btn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+      setIcon();
+    });
+  }
+})();
 
-function applySavedTheme() {
-  const saved = localStorage.getItem('theme'); // 'light' | 'dark'
-  const isDark = saved === 'dark';
-  document.body.classList.toggle('dark-mode', isDark);
-  document.body.dataset.theme = isDark ? 'dark' : 'light';
-  if (isDark) showSun(); else showMoon();
-}
+/* ---------- Mobile Menu (only visible on mobile via CSS) ---------- */
+(function initMobileMenu(){
+  const btn = $('#menuBtn');
+  const menu = $('#mobileMenu');
+  if (!btn || !menu) return;
+  btn.addEventListener('click', () => {
+    menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', menu.classList.contains('open') ? 'true' : 'false');
+  });
+  // close when clicking a link
+  $$('.m-link', menu).forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
+})();
 
-applySavedTheme();
+/* ---------- Lightbox Gallery ---------- */
+(function initLightbox(){
+  const items = $$('#gallery .g-item a');
+  if (!items.length) return;
+  const overlay = $('#lightbox');
+  const img = $('#lbImg');
+  const cap = $('#lbCap');
+  const closeBtn = $('#lbClose');
+  const prevBtn = $('#lbPrev');
+  const nextBtn = $('#lbNext');
+  let index = 0;
 
-darkBtn?.addEventListener('click', () => {
-  const isDark = document.body.classList.toggle('dark-mode');
-  document.body.dataset.theme = isDark ? 'dark' : 'light';
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  if (isDark) showSun(); else showMoon();
-});
+  const open = (i) => {
+    index = i;
+    const a = items[index];
+    img.src = a.getAttribute('href');
+    img.alt = a.getAttribute('data-caption') || '';
+    cap.textContent = a.getAttribute('data-caption') || '';
+    overlay.classList.remove('hidden');
+  };
+  const close = () => overlay.classList.add('hidden');
+  const prev = () => open((index - 1 + items.length) % items.length);
+  const next = () => open((index + 1) % items.length);
 
-// ---------- Theme ----------
-const themeBtn = document.getElementById('theme');
-if (localStorage.getItem('theme')) {
-  document.body.dataset.theme = localStorage.getItem('theme');
-}
-themeBtn?.addEventListener('click', () => {
-  const t = document.body.dataset.theme === 'light' ? 'dark' : 'light';
-  document.body.dataset.theme = t;
-  localStorage.setItem('theme', t);
-});
+  items.forEach((a, i) => {
+    a.addEventListener('click', (e) => { e.preventDefault(); open(i); });
+  });
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+  prevBtn.addEventListener('click', prev);
+  nextBtn.addEventListener('click', next);
+  document.addEventListener('keydown', (e) => {
+    if (overlay.classList.contains('hidden')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+  });
+})();
 
-// ---------- Mobile Menu ----------
-const menu = document.getElementById('menu');
-const mobile = document.getElementById('mobile');
-menu?.addEventListener('click', ()=>{
-  mobile.style.display = mobile.style.display === 'block' ? 'none' : 'block';
-});
-mobile?.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=> mobile.style.display='none'));
+/* ---------- Contact Form (to Google Sheets via Apps Script) ---------- */
+(function initContactForm() {
+  const form = document.querySelector('#contactForm');
+  const msg  = document.querySelector('#formMsg');
+  if (!form || !msg) return;
 
-// ---------- Smooth Scroll ----------
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click', e=>{
-    const id = a.getAttribute('href').slice(1);
-    // If Contact tab, scroll to footer instead
-    if (id === 'contact') {
-      e.preventDefault();
-      document.querySelector('footer').scrollIntoView({behavior:'smooth', block:'start'});
-      history.replaceState(null, '', '#contact');
+  // Replace with your actual Web App URL
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwIRneC14LAIol1r5C0xVuIMT2G1ucJZSEww0ktMVR72mxzW8GJ7Z0iiOzbvylhgOop/exec";
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name    = document.querySelector('#cName')?.value.trim();
+    const email   = document.querySelector('#cEmail')?.value.trim();
+    const subject = document.querySelector('#cSubject')?.value.trim();
+    const message = document.querySelector('#cMessage')?.value.trim();
+
+    if (!name || !email || !message) {
+      msg.textContent = '⚠️ Please fill in your name, email, and message.';
+      msg.className = 'form-msg error';
       return;
     }
-    const el = document.getElementById(id);
-    if(el){
-      e.preventDefault();
-      el.scrollIntoView({behavior:'smooth', block:'start'});
-      history.replaceState(null, '', '#'+id);
+
+    msg.textContent = '⏳ Sending…';
+    msg.className = 'form-msg';
+
+    try {
+      const res = await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, subject, message })
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP error ${res.status}`);
+      }
+
+      const result = await res.json();
+      if (result.result === "success") {
+        msg.textContent = "✅ Message sent successfully!";
+        msg.className = "form-msg success";
+        form.reset();
+      } else {
+        throw new Error(result.message || "Unknown error from server");
+      }
+    } catch (err) {
+      msg.textContent = "❌ Something went wrong. Please try again.";
+      msg.className = "form-msg error";
+      console.error("Form error:", err);
     }
   });
-});
+})();
 
-// ---------- Back to top ----------
-const toTop = document.getElementById('toTop');
-const year = document.getElementById('year');
-year.textContent = new Date().getFullYear();
-const onScroll = ()=>{
-  if (window.scrollY > 400) toTop.classList.add('show'); else toTop.classList.remove('show');
-};
-document.addEventListener('scroll', onScroll, {passive:true});
-onScroll();
-
-// ---------- CV Dialog ----------
-const cvDialog = document.getElementById('cvDialog');
-const openCV = document.getElementById('open-cv');
-const openCVm = document.getElementById('open-cv-mobile');
-const closeCV = document.getElementById('closeCV');
-const openIt = (e)=>{ e && e.preventDefault(); cvDialog.showModal(); };
-openCV && openCV.addEventListener('click', openIt);
-openCVm && openCVm.addEventListener('click', openIt);
-closeCV && closeCV.addEventListener('click', ()=>cvDialog.close());
-
-// ---------- Reveal on scroll ----------
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){ entry.target.classList.add('visible'); io.unobserve(entry.target); }
-  });
-},{threshold:.25});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-// ---------- Fancy Card Mouse Glow & Tilt ----------
-document.querySelectorAll('.card').forEach(card=>{
-  card.addEventListener('pointermove', (e)=>{
-    const rect = card.getBoundingClientRect();
-    const mx = ((e.clientX - rect.left) / rect.width) * 100;
-    card.style.setProperty('--mx', `${mx}%`);
-  });
-});
-document.querySelectorAll('.tilt').forEach(card=>{
-  card.addEventListener('mousemove', (e)=>{
-    const r = card.getBoundingClientRect();
-    const x = e.clientX - r.left, y = e.clientY - r.top;
-    const rx = ((y - r.height/2) / r.height) * -6;
-    const ry = ((x - r.width/2) / r.width) * 6;
-    card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
-  });
-  card.addEventListener('mouseleave', ()=>{
-    card.style.transform = '';
-  });
-});
-
-// ---------- Contact Form → Google Sheets (Apps Script) ----------
-// 1) Create a Google Sheet
-// 2) Extensions → Apps Script, paste sample below, deploy as Web App (Anyone)
-// 3) Replace the URL below with your deployed Web App URL
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxIJAbInlbPfE6GkFBcAl81HfaRL50JLjcTYfZExooHtMuAvpcs5eAFfV8dCSjTCJPl_g/exec'; // <-- replace
-const form = document.getElementById('contactForm');
-const msg = document.getElementById('formMsg');
-
-form?.addEventListener('submit', async (e)=>{
-  e.preventDefault();
-  msg.textContent = 'Sending…';
-  msg.className = 'form-msg';
-  try{
-    const data = new FormData(form);
-    const res = await fetch(GOOGLE_SCRIPT_URL, { method:'POST', body:data, mode:'no-cors' });
-    // With no-cors we assume success
-    form.reset();
-    msg.textContent = 'Thanks! Your message has been sent.';
-    msg.classList.add('success');
-  }catch(err){
-    console.error(err);
-    msg.textContent = 'Sorry, something went wrong. Please try again later.';
-    msg.classList.add('error');
+/* ---------- Reveal on scroll ---------- */
+(function initReveal(){
+  const els = document.querySelectorAll('.reveal');  // ✅ fixed
+  if (!('IntersectionObserver' in window) || !els.length) {
+    els.forEach(el => el.classList.add('visible'));
+    return;
   }
-});
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.classList.add('visible');
+        io.unobserve(en.target);
+      }
+    });
+  }, {threshold: .1});
+  els.forEach(el => io.observe(el));
+})();
 
-/*
---------- Sample Google Apps Script (Code.gs) ---------
-function doPost(e) {
-  const sheet = SpreadsheetApp.openById('YOUR_SHEET_ID').getSheetByName('Sheet1');
-  const d = new Date();
-  const name = e.parameter.name || '';
-  const email = e.parameter.email || '';
-  const subject = e.parameter.subject || '';
-  const message = e.parameter.message || '';
-  sheet.appendRow([d, name, email, subject, message]);
-  return ContentService.createTextOutput('OK').setMimeType(ContentService.MimeType.TEXT);
-}
-------------------------------------------------------
-After saving:
-- Deploy → New deployment → Type: Web app
-- Execute as: Me
-- Who has access: Anyone
-- Copy the Web app URL and paste into GOOGLE_SCRIPT_URL above.
-*/
+
+/* ---------- Hover lighting for cards ---------- */
+(function hoverGlow(){
+  $$('.card').forEach(card => {
+    card.addEventListener('pointermove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 100;
+      card.style.setProperty('--mx', `${x}%`);
+    });
+  });
+})();
+
+/* ---------- Back to Top ---------- */
+(function backToTop(){
+  const btn = $('#toTop');
+  if (!btn) return;
+  const toggle = () => btn.classList[window.scrollY > 600 ? 'add' : 'remove']('show');
+  toggle();
+  window.addEventListener('scroll', toggle);
+})();
+
+/* ---------- CV Dialog ---------- */
+(function cvDialog(){
+  const dialog = $('#cvDialog');
+  const openBtn = $('#openCV');
+  const openMobile = $('#openCVMobile');
+  const closeBtn = $('#closeCV');
+
+  if (!dialog) return;
+  const open = () => { if (typeof dialog.showModal === 'function') dialog.showModal(); else window.open('MY CV_0.1.pdf', '_blank'); };
+  const close = () => dialog.close();
+
+  openBtn && openBtn.addEventListener('click', open);
+  openMobile && openMobile.addEventListener('click', (e)=>{ e.preventDefault(); open(); $('#mobileMenu')?.classList.remove('open'); });
+  closeBtn && closeBtn.addEventListener('click', close);
+})();
+
+/* ---------- Footer Year ---------- */
+(function year(){
+  const y = $('#year'); if (y) y.textContent = new Date().getFullYear();
+})();
