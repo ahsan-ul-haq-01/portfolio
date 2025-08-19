@@ -94,7 +94,7 @@ const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
 
   // Replace with your actual Web App /exec URL
 
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyErnDlZ0g_YBTb81bvYzhIS5uZvm5flcTGj3i04cyfI9flKrVelkLSTNUypvGQRtf7gw/exec";
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPYeoXPLUNTGfTuJj6nSCihD350ElHF7YeYDdFf3Rl84clEDg50OEi-5avb8WIQSdniA/exec";
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
