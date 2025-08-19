@@ -85,61 +85,57 @@ const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
   });
 })();
 
-// message me 
+// message me
+ 
+(function ($) {
+  "use strict";
 
-(function initContactForm() {
-  const form = document.querySelector('#contactForm');
-  const msg  = document.querySelector('#formMsg');
-  if (!form || !msg) return;
+  const form = document.getElementById("feedback-form");
+  const successBox = document.getElementById("feedback-success");
+  if (!form) return;
 
-  // Replace with your actual Web App /exec URL
-
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPYeoXPLUNTGfTuJj6nSCihD350ElHF7YeYDdFf3Rl84clEDg50OEi-5avb8WIQSdniA/exec";
-
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const name    = document.querySelector('#cName')?.value.trim();
-    const email   = document.querySelector('#cEmail')?.value.trim();
-    const subject = document.querySelector('#cSubject')?.value.trim();
-    const message = document.querySelector('#cMessage')?.value.trim();
+    const name    = form.querySelector('input[name="name"]')?.value.trim() || "";
+    const email   = form.querySelector('input[name="email"]')?.value.trim() || "";
+    const subject = form.querySelector('input[name="subject"]')?.value.trim() || "";
+    const message = form.querySelector('textarea[name="message"]')?.value.trim() || "";
 
-    if (!name || !email || !message) {
-      msg.textContent = '⚠️ Please fill in your name, email, and message.';
-      msg.className = 'form-msg error';
+    if (!name || !email || !subject || !message) {
+      console.error("Please complete all required fields.");
       return;
     }
 
-    msg.textContent = '⏳ Sending…';
-    msg.className = 'form-msg';
+    const scriptURL = "https://script.google.com/macros/s/AKfycbwPYeoXPLUNTGfTuJj6nSCihD350ElHF7YeYDdFf3Rl84clEDg50OEi-5avb8WIQSdniA/exec";
 
-    try {
-      const formData = new URLSearchParams({ name, email, subject, message });
+    const body = new URLSearchParams({ name, email, subject, message });
 
-      const res = await fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        // Do not set Content-Type; browser will set application/x-www-form-urlencoded
-        body: formData
+    fetch(scriptURL, {
+      method: "POST",
+      body
+    })
+      .then(async (res) => {
+        const text = await res.text();
+        let json;
+        try { json = JSON.parse(text); } catch { json = { result: "error", message: text }; }
+
+        if (!res.ok || json.result !== "success") {
+          throw new Error(`${res.status} ${res.statusText} - ${json.message || text}`);
+        }
+
+        if (successBox) {
+          successBox.style.display = "block";
+          setTimeout(() => (successBox.style.display = "none"), 4000);
+        }
+        form.reset();
+      })
+      .catch((err) => {
+        console.error("Error!", err);
       });
-
-      const text = await res.text();
-      let result;
-      try { result = JSON.parse(text); } catch { result = { result: 'error', message: text }; }
-
-      if (!res.ok || result.result !== "success") {
-        throw new Error(`${res.status} ${res.statusText} - ${result.message || text}`);
-      }
-
-      msg.textContent = "✅ Message sent successfully!";
-      msg.className = "form-msg success";
-      form.reset();
-    } catch (err) {
-      msg.textContent = "❌ Something went wrong. Please try again.";
-      msg.className = "form-msg error";
-      console.error("Form error:", err);
-    }
   });
-})();
+})(window.jQuery);
+
 
 
 /* ---------- Reveal on scroll ---------- */
