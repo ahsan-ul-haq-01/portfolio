@@ -1,15 +1,7 @@
 /* =========================================
-   JS interactions:
-   - Dark mode (with localStorage)
-   - Mobile menu toggle (mobile-only)
-   - Lightbox gallery
-   - Contact form validation / fake submit
-   - Scroll reveal & hover parallax
-   - Back-to-top button
-   - CV dialog open/close
+   JS interactions
    ========================================= */
 
-// Helper: select
 const $ = (q, c = document) => c.querySelector(q);
 const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
 
@@ -33,7 +25,7 @@ const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
   }
 })();
 
-/* ---------- Mobile Menu (only visible on mobile via CSS) ---------- */
+/* ---------- Mobile Menu ---------- */
 (function initMobileMenu(){
   const btn = $('#menuBtn');
   const menu = $('#mobileMenu');
@@ -42,11 +34,10 @@ const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
     menu.classList.toggle('open');
     btn.setAttribute('aria-expanded', menu.classList.contains('open') ? 'true' : 'false');
   });
-  // close when clicking a link
   $$('.m-link', menu).forEach(a => a.addEventListener('click', () => menu.classList.remove('open')));
 })();
 
-/* ---------- Lightbox Gallery ---------- */
+/* ---------- Lightbox ---------- */
 (function initLightbox(){
   const items = $$('#gallery .g-item a');
   if (!items.length) return;
@@ -85,25 +76,24 @@ const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
   });
 })();
 
-// message me
- 
-(function ($) {
+/* ---------- Contact Form (Google Sheets) ---------- */
+(function () {
   "use strict";
-
-  const form = document.getElementById("feedback-form");
-  const successBox = document.getElementById("feedback-success");
+  const form = document.getElementById("contactForm");
+  const msgBox = document.getElementById("formMsg");
   if (!form) return;
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const name    = form.querySelector('input[name="name"]')?.value.trim() || "";
-    const email   = form.querySelector('input[name="email"]')?.value.trim() || "";
-    const subject = form.querySelector('input[name="subject"]')?.value.trim() || "";
-    const message = form.querySelector('textarea[name="message"]')?.value.trim() || "";
+    const name    = document.getElementById("cName")?.value.trim() || "";
+    const email   = document.getElementById("cEmail")?.value.trim() || "";
+    const subject = document.getElementById("cSubject")?.value.trim() || "";
+    const message = document.getElementById("cMessage")?.value.trim() || "";
 
-    if (!name || !email || !subject || !message) {
-      console.error("Please complete all required fields.");
+    if (!name || !email || !message) {
+      msgBox.textContent = "Please complete all required fields.";
+      msgBox.className = "form-msg error";
       return;
     }
 
@@ -111,10 +101,7 @@ const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
 
     const body = new URLSearchParams({ name, email, subject, message });
 
-    fetch(scriptURL, {
-      method: "POST",
-      body
-    })
+    fetch(scriptURL, { method: "POST", body })
       .then(async (res) => {
         const text = await res.text();
         let json;
@@ -124,23 +111,21 @@ const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
           throw new Error(`${res.status} ${res.statusText} - ${json.message || text}`);
         }
 
-        if (successBox) {
-          successBox.style.display = "block";
-          setTimeout(() => (successBox.style.display = "none"), 4000);
-        }
+        msgBox.textContent = "Message sent successfully!";
+        msgBox.className = "form-msg success";
         form.reset();
       })
       .catch((err) => {
         console.error("Error!", err);
+        msgBox.textContent = "There was an error sending your message. Please try again.";
+        msgBox.className = "form-msg error";
       });
   });
-})(window.jQuery);
-
-
+})();
 
 /* ---------- Reveal on scroll ---------- */
 (function initReveal(){
-  const els = document.querySelectorAll('.reveal');  // ✅ fixed
+  const els = document.querySelectorAll('.reveal');
   if (!('IntersectionObserver' in window) || !els.length) {
     els.forEach(el => el.classList.add('visible'));
     return;
@@ -156,8 +141,7 @@ const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
   els.forEach(el => io.observe(el));
 })();
 
-
-/* ---------- Hover lighting for cards ---------- */
+/* ---------- Hover Glow ---------- */
 (function hoverGlow(){
   $$('.card').forEach(card => {
     card.addEventListener('pointermove', (e) => {
