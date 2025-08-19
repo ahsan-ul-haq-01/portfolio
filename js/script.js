@@ -93,7 +93,8 @@ const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
   if (!form || !msg) return;
 
   // Replace with your actual Web App /exec URL
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyMcSWKrM_yKVxYpnBD7QX2wLxMyyxl1OenLZJFMbGr7xdkfS9_Dzc_MAneWccBijzg/exec";
+
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyErnDlZ0g_YBTb81bvYzhIS5uZvm5flcTGj3i04cyfI9flKrVelkLSTNUypvGQRtf7gw/exec";
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -139,6 +140,7 @@ const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
     }
   });
 })();
+
 
 /* ---------- Reveal on scroll ---------- */
 (function initReveal(){
