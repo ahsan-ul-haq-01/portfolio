@@ -97,7 +97,7 @@ const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
       return;
     }
 
-    const scriptURL = "https://script.google.com/macros/s/AKfycbwPYeoXPLUNTGfTuJj6nSCihD350ElHF7YeYDdFf3Rl84clEDg50OEi-5avb8WIQSdniA/exec";
+    const scriptURL = "https://script.google.com/macros/s/AKfycbz0yReGD8SyXdh9hVffRN4DZFm8JKEcl7bV4L7DLOleAMuXHf0G4lKHpVT2Nf-JIUkF-w/exec";
 
     const body = new URLSearchParams({ name, email, subject, message });
 
