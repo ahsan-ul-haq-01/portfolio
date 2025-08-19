@@ -85,14 +85,15 @@ const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
   });
 })();
 
-/* ---------- Contact Form (to Google Sheets via Apps Script) ---------- */
+// message me 
+
 (function initContactForm() {
   const form = document.querySelector('#contactForm');
   const msg  = document.querySelector('#formMsg');
   if (!form || !msg) return;
 
-  // Replace with your actual Web App URL
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwIRneC14LAIol1r5C0xVuIMT2G1ucJZSEww0ktMVR72mxzW8GJ7Z0iiOzbvylhgOop/exec";
+  // Replace with your actual Web App /exec URL
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyMcSWKrM_yKVxYpnBD7QX2wLxMyyxl1OenLZJFMbGr7xdkfS9_Dzc_MAneWccBijzg/exec";
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -112,24 +113,25 @@ const $$ = (q, c = document) => Array.from(c.querySelectorAll(q));
     msg.className = 'form-msg';
 
     try {
+      const formData = new URLSearchParams({ name, email, subject, message });
+
       const res = await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, subject, message })
+        // Do not set Content-Type; browser will set application/x-www-form-urlencoded
+        body: formData
       });
 
-      if (!res.ok) {
-        throw new Error(`HTTP error ${res.status}`);
+      const text = await res.text();
+      let result;
+      try { result = JSON.parse(text); } catch { result = { result: 'error', message: text }; }
+
+      if (!res.ok || result.result !== "success") {
+        throw new Error(`${res.status} ${res.statusText} - ${result.message || text}`);
       }
 
-      const result = await res.json();
-      if (result.result === "success") {
-        msg.textContent = "✅ Message sent successfully!";
-        msg.className = "form-msg success";
-        form.reset();
-      } else {
-        throw new Error(result.message || "Unknown error from server");
-      }
+      msg.textContent = "✅ Message sent successfully!";
+      msg.className = "form-msg success";
+      form.reset();
     } catch (err) {
       msg.textContent = "❌ Something went wrong. Please try again.";
       msg.className = "form-msg error";
